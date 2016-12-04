@@ -10,7 +10,9 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "scan": "dash-button scan"
+    "scan": "dash-button scan",
+    "smartWater": "DASH_BUTTON_ADDR=50:f5:da:d2:20:1e node index.js",
+    "charmin": "DASH_BUTTON_ADDR=ac:63:be:9f:df:9c node index.js"
   },
   "author": "",
   "license": "ISC"

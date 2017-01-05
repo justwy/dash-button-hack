@@ -1,22 +1,24 @@
 var DashButton = require('dash-button');
 var hueInterface = require('./hueInterface')
 
-const addrButtonMapping = {
-    "50:f5:da:d2:20:1e": {
-        name: "smartWater",
+const buttonAddrMapping = {
+    smartWater: {
+        addr: "50:f5:da:d2:20:1e",
         groupId: hueInterface.GROUPS.LIVING_GROUP_ID
     },
-    "ac:63:be:9f:df:9c": {
-        name: "charmin",
+    charmin: {
+        addr: "ac:63:be:9f:df:9c",
         groupId: hueInterface.GROUPS.BEDROOM_GROUP_ID
     }
 };
 
-var dashButtonMacAddress = process.env.DASH_BUTTON_ADDR;
+var select = process.argv[2];
+console.log(process.argv)
+console.log(select)
 
-var buttonInfo = addrButtonMapping[dashButtonMacAddress];
+var buttonInfo = buttonAddrMapping[select];
 
-var button = new DashButton(dashButtonMacAddress);
+var button = new DashButton(buttonInfo.addr);
 
 var count = 0;
 button.addListener(function() {

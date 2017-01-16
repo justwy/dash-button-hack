@@ -21,21 +21,25 @@ var buttonInfo = buttonAddrMapping[select];
 var button = new DashButton(buttonInfo.addr);
 
 var lastTimePressedInMillis = 0;
+var count = 0;
 button.addListener(function() {
     var now = (new Date).getTime();
-    var skip = (now - lastTimePressedInMillis) < 500;
+    var duration = now - lastTimePressedInMillis;
     lastTimePressedInMillis = now;
 
-    if (skip) {
+    console.log('duration between signals in millis', duration);
+
+    if (duration < 500) {
         console.log("Ignore the signal because it is duplicate");
         return;
     }
 
     hueInterface.toggleLightsWithMaxBright(buttonInfo.groupId, function(err) {
+	count++;
         if (err) {
             console.log("woops! ", err);
         } else {
-            console.log("pressed.")
+            console.log("pressed %d times", count);
         }
     })
 });

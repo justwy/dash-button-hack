@@ -29,7 +29,7 @@ button.addListener(function() {
 
     console.log('duration between signals in millis', duration);
 
-    if (duration < 500) {
+    if (duration < 5000) {
         console.log("Ignore the signal because it is duplicate");
         return;
     }

@@ -20,9 +20,22 @@ var buttonInfo = buttonAddrMapping[select];
 
 var button = new DashButton(buttonInfo.addr);
 
-var count = 0;
+var lastTimePressedInMillis = 0;
 button.addListener(function() {
+    var now = (new Date).getTime();
+    var skip = (now - lastTimePressedInMillis) < 500;
+    lastTimePressedInMillis = now;
+
+    if (skip) {
+        console.log("Ignore the signal because it is duplicate");
+        return;
+    }
+
     hueInterface.toggleLightsWithMaxBright(buttonInfo.groupId, function(err) {
-        console.log("button pressed %d times", ++count, err);
+        if (err) {
+            console.log("woops! ", err);
+        } else {
+            console.log("pressed.")
+        }
     })
 });
